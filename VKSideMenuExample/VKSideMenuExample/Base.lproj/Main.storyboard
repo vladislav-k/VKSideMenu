@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="n7p-2A-RG4">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="dfM-cp-GQT">
+                                <rect key="frame" x="220" y="72" width="160" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="NjT-b6-Q8x"/>
+                                    <constraint firstAttribute="width" constant="160" id="ZxF-Ng-pXQ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="rdX-Yf-Dti">
+                                <rect key="frame" x="20" y="240" width="560" height="352"/>
+                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus nulla velit, eget pharetra massa tempor at. Morbi nisi felis, mattis ut consectetur at, pulvinar in diam. Vestibulum dolor lectus, eleifend id tellus vitae, vulputate imperdiet urna. Curabitur fermentum felis convallis nunc congue, ac aliquam mauris commodo. Quisque cursus auctor neque. Vestibulum quis est vel dolor luctus consectetur vel sed justo. Sed diam nulla, dapibus at cursus id, blandit eu nisi.
+
+Nullam at feugiat neque. Integer placerat diam at ipsum consequat, ut sollicitudin magna eleifend. Nunc et convallis ligula. Nunc id tellus sed dolor viverra interdum vitae id massa. Vivamus posuere congue diam in auctor. Aenean ut tortor tempus, pretium lectus sit amet, consectetur nibh. Praesent eu consectetur elit. Maecenas eu neque quis diam congue pellentesque et sit amet nunc. Etiam pretium libero sed tellus ullamcorper, id vulputate dui pulvinar. Praesent ultricies ligula eu viverra feugiat. Sed finibus felis varius, consequat nisl a, convallis nibh. Suspendisse feugiat laoreet est, a tempor magna sodales ac. Integer vel feugiat dui. Nam id elit nec elit lacinia efficitur. Vestibulum quis tellus pellentesque, eleifend metus at, malesuada sapien. Donec at libero at mi porta molestie.
+
+Duis eu odio maximus, dignissim nisi viverra, semper ex. Nulla elementum, elit sit amet fermentum vestibulum, elit ipsum pharetra tortor, eu rhoncus velit tellus non nisi. Etiam hendrerit massa tellus, sit amet consequat mi consequat ultrices. Fusce efficitur, neque nec consectetur vestibulum, sem risus pulvinar augue, vitae varius metus libero non ante. Fusce tellus erat, convallis eu nisi ac, accumsan suscipit eros. Integer at felis iaculis, dignissim ligula pellentesque, eleifend ligula. Morbi gravida malesuada est. Proin sollicitudin condimentum blandit. Maecenas euismod et risus quis lacinia. Phasellus est massa, accumsan nec metus id, suscipit rhoncus massa. Integer lectus ligula, ultrices non condimentum et, mollis vel elit. Quisque sit amet cursus est. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In viverra felis augue, sed gravida est tempor vel. Sed in tortor est. Pellentesque dictum odio libero, nec ullamcorper erat euismod sed.
+</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.94509803920000002" green="0.92941176469999998" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dfM-cp-GQT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KNt-Q1-ovk"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rdX-Yf-Dti" secondAttribute="bottom" constant="8" id="PP4-0X-udO"/>
+                            <constraint firstItem="dfM-cp-GQT" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="W2t-z3-Uvg"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="rdX-Yf-Dti" secondAttribute="leading" id="pg7-nB-MbZ"/>
+                            <constraint firstItem="rdX-Yf-Dti" firstAttribute="top" secondItem="dfM-cp-GQT" secondAttribute="bottom" constant="8" id="xqo-2y-vVH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rdX-Yf-Dti" secondAttribute="trailing" id="z0b-lU-cmp"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="y1C-z3-DKF">
+                        <barButtonItem key="leftBarButtonItem" title="Left" id="jVZ-yU-6Uf">
+                            <connections>
+                                <action selector="buttonMenuLeft:" destination="BYZ-38-t0r" id="wb4-r4-fqW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Right" id="lgk-jU-6G9">
+                            <connections>
+                                <action selector="buttonMenuRight:" destination="BYZ-38-t0r" id="fJn-WB-jSE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="avatar" destination="dfM-cp-GQT" id="GWq-gU-Qvj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1004" y="1089"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Lc7-N0-MKE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="n7p-2A-RG4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kmK-w5-GW0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="7wF-I3-Deu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BQF-tH-QnH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="316" y="1089"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="avatar" width="170" height="170"/>
+    </resources>
+</document>
