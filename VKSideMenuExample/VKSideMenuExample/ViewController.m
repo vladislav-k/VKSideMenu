@@ -62,6 +62,8 @@
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
         self.menuRight.blurEffectStyle = UIBlurEffectStyleDark;
+    else
+        self.menuRight.backgroundColor = [UIColor colorWithWhite:0. alpha:0.8];
     
     // Make stormtrooper image to be cool
     self.avatar.layer.cornerRadius  = self.avatar.frame.size.width * .5;

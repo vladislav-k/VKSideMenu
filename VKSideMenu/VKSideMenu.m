@@ -24,6 +24,7 @@
 
 #import "VKSideMenu.h"
 
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define ROOTVC [[[[UIApplication sharedApplication] delegate] window] rootViewController]
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -81,13 +82,13 @@
     
     self.sectionTitleFont   = [UIFont systemFontOfSize:15.];
     self.selectionColor     = [UIColor colorWithWhite:1. alpha:.5];
+    self.backgroundColor    = [UIColor colorWithWhite:1. alpha:.8];
     self.textColor          = UIColorFromRGB(0x252525);
     self.iconsColor         = UIColorFromRGB(0x8f8f8f);
     self.sectionTitleColor  = UIColorFromRGB(0x8f8f8f);
     
-#if __IPHONE_8_0
-    self.blurEffectStyle = UIBlurEffectStyleExtraLight;
-#endif
+    if(!SYSTEM_VERSION_LESS_THAN(@"8.0"))
+        self.blurEffectStyle = UIBlurEffectStyleExtraLight;
 }
 
 -(void)initViews
@@ -97,21 +98,24 @@
     self.overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     if (self.enableOverlay)
-        self.overlay.backgroundColor = [UIColor colorWithWhite:0. alpha:.6];
+        self.overlay.backgroundColor = [UIColor colorWithWhite:0. alpha:.4];
     
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
     [self.overlay addGestureRecognizer:tapGesture];
     
     CGRect frame = [self frameHidden];
     
-#if __IPHONE_8_0
-    UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:self.blurEffectStyle];
-    self.view = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    self.view.frame = frame;
-#else
-    self.view = [[UIView alloc] initWithFrame:frame];
-    self.view.backgroundColor = [UIColor colorWithWhite:1. alpha:.7];
-#endif
+    if(SYSTEM_VERSION_LESS_THAN(@"8.0"))
+    {
+        self.view = [[UIView alloc] initWithFrame:frame];
+        self.view.backgroundColor = self.backgroundColor;
+    }
+    else
+    {
+        UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:self.blurEffectStyle];
+        self.view = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        self.view.frame = frame;
+    }
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate         = self;
@@ -191,21 +195,36 @@
     static NSString *cellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if (cell == nil)
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    UIImageView *imageViewIcon;
+    UILabel *title;
     
-    [[cell subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        
+        cell.backgroundColor = [UIColor clearColor];
+        
+        UIView *bgColorView = [[UIView alloc] init];
+        [bgColorView setBackgroundColor:self.selectionColor];
+        [cell setSelectedBackgroundView:bgColorView];
+    }
     
     VKSideMenuItem *item = [self.dataSource sideMenu:self itemForRowAtIndexPath:indexPath];
     
     CGFloat contentHeight = cell.frame.size.height * .8;
     CGFloat contentTopBottomPadding = cell.frame.size.height * .1;
     
-    UIImageView *imageViewIcon;
-    
     if (item.icon)
     {
-        imageViewIcon = [[UIImageView alloc] initWithFrame:CGRectMake(12, contentTopBottomPadding, contentHeight, contentHeight)];
+        imageViewIcon = [cell.contentView viewWithTag:100];
+        
+        if (!imageViewIcon)
+        {
+            imageViewIcon = [[UIImageView alloc] initWithFrame:CGRectMake(12, contentTopBottomPadding, contentHeight, contentHeight)];
+            imageViewIcon.tag = 100;
+            [cell.contentView addSubview:imageViewIcon];
+        }
+        
         imageViewIcon.image = item.icon;
         
         if (self.iconsColor)
@@ -215,21 +234,21 @@
         }
     }
     
-    CGFloat titleX = CGRectGetMaxX(imageViewIcon.frame) + 12;
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(titleX, contentTopBottomPadding, cell.frame.size.width - titleX - 12, contentHeight)];
+    title = [cell.contentView viewWithTag:200];
+    
+    if (!title)
+    {
+        CGFloat titleX = item.icon ? CGRectGetMaxX(imageViewIcon.frame) + 12 : 12;
+        title = [[UILabel alloc] initWithFrame:CGRectMake(titleX, contentTopBottomPadding, cell.frame.size.width - titleX - 12, contentHeight)];
+        title.tag = 200;
+        title.font = [UIFont systemFontOfSize:17.0];
+        title.adjustsFontSizeToFitWidth = YES;
+        [cell.contentView addSubview:title];
+    }
+    
     title.text      = item.title;
-    title.font      = [UIFont systemFontOfSize:19.0];
     title.textColor = self.textColor;
-    title.adjustsFontSizeToFitWidth = YES;
     
-    [cell addSubview:imageViewIcon];
-    [cell addSubview:title];
-    
-    cell.backgroundColor = [UIColor clearColor];
-    
-    UIView *bgColorView = [[UIView alloc] init];
-    [bgColorView setBackgroundColor:self.selectionColor];
-    [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
 }

@@ -168,30 +168,19 @@ typedef NS_ENUM(NSInteger, VKSideMenuDirection)
  */
 @property (nonatomic, assign) CGFloat width;
 
-#if __IPHONE_8_0
 /*!
  @property  view
  @abstract  View of the <code>VKSideMenu</code>
- @note      Used if iOS version is earlier than 8.0
+ @note      If iOS version is 8.0 or later it will be initialized as UIVisualEffectView
  */
 @property (nonatomic, strong) UIView *view;
-#else
-/*!
- @property  view
- @abstract  View of the <code>VKSideMenu</code>
- @note      Used if iOS version is 8.0 or later
- */
-@property (nonatomic, strong) UIVisualEffectView *view;
-#endif
 
-#if __IPHONE_8_0
 /*!
  @property  blurEffectStyle
  @abstract  UIBlurEffectStyle for <code>VKSideMenu</code> view
- @note      Used if iOS version is 8.0 or later. Default is UIBlurEffectStyleExtraLight
+ @note      Use if iOS version is 8.0 or later. Default is UIBlurEffectStyleExtraLight
  */
-@property (nonatomic, assign) UIBlurEffectStyle blurEffectStyle;
-#endif
+@property (nonatomic, assign) UIBlurEffectStyle blurEffectStyle NS_AVAILABLE_IOS(8_0);
 
 /*!
  @property  tableView
@@ -239,6 +228,14 @@ typedef NS_ENUM(NSInteger, VKSideMenuDirection)
  @abstract  Hides <code>VKSideMenu</code> view
  */
 -(void)hide;
+
+/*!
+ @property   backgroundColor
+ @abstract   Color of selection for <code>tableView</code> rows
+ @note       Default is colorWithWhite:1. alpha:.8
+ @discussion Use only with iOS 7
+ */
+@property (nonatomic, strong) UIColor *backgroundColor NS_DEPRECATED_IOS(7_0, 7_1);
 
 /*!
  @property  selectionColor
