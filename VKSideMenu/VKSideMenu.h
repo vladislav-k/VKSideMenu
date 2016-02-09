@@ -235,7 +235,7 @@ typedef NS_ENUM(NSInteger, VKSideMenuDirection)
  @note       Default is colorWithWhite:1. alpha:.8
  @discussion Use only with iOS 7
  */
-@property (nonatomic, strong) UIColor *backgroundColor NS_DEPRECATED_IOS(7_0, 7_1);
+@property (nonatomic, strong) UIColor *backgroundColor NS_DEPRECATED_IOS(7_0, 8_0);
 
 /*!
  @property  selectionColor

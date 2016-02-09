@@ -24,7 +24,7 @@
 
 #import "VKSideMenu.h"
 
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define ROOTVC [[[[UIApplication sharedApplication] delegate] window] rootViewController]
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -82,7 +82,10 @@
     
     self.sectionTitleFont   = [UIFont systemFontOfSize:15.];
     self.selectionColor     = [UIColor colorWithWhite:1. alpha:.5];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     self.backgroundColor    = [UIColor colorWithWhite:1. alpha:.8];
+#pragma clang diagnostic pop
     self.textColor          = UIColorFromRGB(0x252525);
     self.iconsColor         = UIColorFromRGB(0x8f8f8f);
     self.sectionTitleColor  = UIColorFromRGB(0x8f8f8f);
@@ -108,7 +111,10 @@
     if(SYSTEM_VERSION_LESS_THAN(@"8.0"))
     {
         self.view = [[UIView alloc] initWithFrame:frame];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         self.view.backgroundColor = self.backgroundColor;
+#pragma clang diagnostic pop
     }
     else
     {
@@ -139,15 +145,15 @@
     CGRect frame = [self frameShowed];
     
     [UIView animateWithDuration:0.275 animations:^
-    {
-        self.view.frame = frame;
-        self.overlay.alpha = 1.0;
-    }
-    completion:^(BOOL finished)
-    {
-        if (_delegate && [_delegate respondsToSelector:@selector(sideMenuDidShow:)])
-            [_delegate sideMenuDidShow:self];
-    }];
+     {
+         self.view.frame = frame;
+         self.overlay.alpha = 1.0;
+     }
+                     completion:^(BOOL finished)
+     {
+         if (_delegate && [_delegate respondsToSelector:@selector(sideMenuDidShow:)])
+             [_delegate sideMenuDidShow:self];
+     }];
 }
 
 -(void)showWithWidth:(CGFloat)width
@@ -159,23 +165,23 @@
 -(void)hide
 {
     [UIView animateWithDuration:0.275 animations:^
-    {
-        self.view.frame = [self frameHidden];
-        self.overlay.alpha = 0.;
-    }
-    completion:^(BOOL finished)
-    {
-        if (_delegate && [_delegate respondsToSelector:@selector(sideMenuDidHide:)])
-            [_delegate sideMenuDidHide:self];
-        
-        [self.view removeFromSuperview];
-        [self.overlay removeFromSuperview];
-        [self.overlay removeGestureRecognizer:tapGesture];
-        
-        self.overlay = nil;
-        self.tableView = nil;
-        self.view = nil;
-    }];
+     {
+         self.view.frame = [self frameHidden];
+         self.overlay.alpha = 0.;
+     }
+                     completion:^(BOOL finished)
+     {
+         if (_delegate && [_delegate respondsToSelector:@selector(sideMenuDidHide:)])
+             [_delegate sideMenuDidHide:self];
+         
+         [self.view removeFromSuperview];
+         [self.overlay removeFromSuperview];
+         [self.overlay removeGestureRecognizer:tapGesture];
+         
+         self.overlay = nil;
+         self.tableView = nil;
+         self.view = nil;
+     }];
 }
 
 #pragma mark - UITableViewDataSource
