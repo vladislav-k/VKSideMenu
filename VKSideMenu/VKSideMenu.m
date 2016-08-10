@@ -1,5 +1,6 @@
 //
 //  VKSideMenu.m
+//  Version: 1.1
 //
 //  Created by Vladislav Kovalyov on 2/7/16.
 //  Copyright © 2016 WOOPSS.com (http://woopss.com/)
@@ -59,13 +60,25 @@
     return self;
 }
 
--(instancetype)initWithWidth:(CGFloat)width andDirection:(VKSideMenuDirection)direction
+-(instancetype)initWithDirection:(VKSideMenuDirection)direction
 {
-    if ((self = [super init]))
+    if (self = [super init])
     {
         [self baseInit];
         
-        self.width      = width;
+        self.direction  = direction;
+    }
+    
+    return self;
+}
+
+-(instancetype)initWithSize:(CGFloat)size andDirection:(VKSideMenuDirection)direction
+{
+    if (self = [super init])
+    {
+        [self baseInit];
+        
+        self.size       = size;
         self.direction  = direction;
     }
     
@@ -74,11 +87,13 @@
 
 -(void)baseInit
 {
-    self.width                      = 220;
-    self.direction                  = VKSideMenuDirectionLeftToRight;
+    self.size                       = 220;
+    self.direction                  = VKSideMenuDirectionFromLeft;
+    self.rowHeight                  = 44;
     self.enableOverlay              = YES;
     self.automaticallyDeselectRow   = YES;
     self.hideOnSelection            = YES;
+    self.enableGestures             = YES;
     
     self.sectionTitleFont   = [UIFont systemFontOfSize:15.];
     self.selectionColor     = [UIColor colorWithWhite:1. alpha:.5];
@@ -96,6 +111,7 @@
 
 -(void)initViews
 {
+    // Setup overlay
     self.overlay = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.overlay.alpha = 0;
     self.overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -103,8 +119,29 @@
     if (self.enableOverlay)
         self.overlay.backgroundColor = [UIColor colorWithWhite:0. alpha:.4];
     
-    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-    [self.overlay addGestureRecognizer:tapGesture];
+    // Setup gestures
+    if (self.enableGestures)
+    {
+        tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+        [self.overlay addGestureRecognizer:tapGesture];
+    }
+    
+//     Setup frame before show
+    
+//    if (self.direction == VKSideMenuDirectionFromTop || self.direction == VKSideMenuDirectionFromBottom)
+//    {
+//        // Calculate table view height for vertical directions (fromTop and fromBottom)
+//        self.tableViewHeight = 20;
+//        NSInteger numberOfSections = [self.dataSource numberOfSectionsInSideMenu:self];
+//        
+//        for (int section; section < numberOfSections; section++)
+//        {
+//            self.tableViewHeight += [self.dataSource sideMenu:self numberOfRowsInSection:section] * self.rowHeight;
+//            
+//            if ([self.delegate sideMenu:self titleForHeaderInSection:section].length > 0)
+//                self.tableViewHeight += [self.tableView sectionHeaderHeight];
+//        }
+//    }
     
     CGRect frame = [self frameHidden];
     
@@ -123,6 +160,7 @@
         self.view.frame = frame;
     }
     
+    // Setup content table view
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate         = self;
     self.tableView.dataSource       = self;
@@ -156,9 +194,9 @@
      }];
 }
 
--(void)showWithWidth:(CGFloat)width
+-(void)showWithSize:(CGFloat)size
 {
-    self.width = width;
+    self.size = size;
     [self show];
 }
 
@@ -246,7 +284,7 @@
     {
         CGFloat titleX = item.icon ? CGRectGetMaxX(imageViewIcon.frame) + 12 : 12;
         title = [[UILabel alloc] initWithFrame:CGRectMake(titleX, contentTopBottomPadding, cell.frame.size.width - titleX - 12, contentHeight)];
-        title.tag = 200;
+        title.tag  = 200;
         title.font = [UIFont systemFontOfSize:17.0];
         title.adjustsFontSizeToFitWidth = YES;
         [cell.contentView addSubview:title];
@@ -254,7 +292,6 @@
     
     title.text      = item.title;
     title.textColor = self.textColor;
-    
     
     return cell;
 }
@@ -275,7 +312,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44.;
+    return self.rowHeight;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -295,7 +332,35 @@
     [header.textLabel setFont:self.sectionTitleFont];
 }
 
-#pragma mark - UITapGestureRecognition
+#pragma mark - GestureRecognition
+
+-(void)addSwipeGestureRecognition:(UIView *)view
+{
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(didSwap:)];
+    
+    switch (self.direction)
+    {
+        case VKSideMenuDirectionFromTop:
+            swipe.direction = UISwipeGestureRecognizerDirectionDown;
+            break;
+            
+        case VKSideMenuDirectionFromLeft:
+            swipe.direction = UISwipeGestureRecognizerDirectionRight;
+            break;
+
+            
+        case VKSideMenuDirectionFromBottom:
+            swipe.direction = UISwipeGestureRecognizerDirectionUp;
+            break;
+
+            
+        case VKSideMenuDirectionFromRight:
+            swipe.direction = UISwipeGestureRecognizerDirectionLeft;
+            break;
+    }
+    
+    [view addGestureRecognizer:swipe];
+}
 
 -(void)didTap:(UIGestureRecognizer *)gesture
 {
@@ -303,18 +368,64 @@
         [self hide];
 }
 
+-(void)didSwap:(UISwipeGestureRecognizer*)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateEnded && self.enableGestures)
+        [self showWithSize:self.size];
+}
+
 #pragma mark - Helpers
 
 -(CGRect)frameHidden
 {
-    CGFloat x = self.direction == VKSideMenuDirectionLeftToRight ? -self.width : [UIScreen mainScreen].bounds.size.width + self.width;
-    return CGRectMake(x, 0, self.width, [UIScreen mainScreen].bounds.size.height);
+    CGRect frame = CGRectZero;
+    
+    switch (self.direction)
+    {
+        case VKSideMenuDirectionFromTop:
+            frame = CGRectMake(0, -self.size, [UIScreen mainScreen].bounds.size.width, self.size);
+            break;
+            
+        case VKSideMenuDirectionFromLeft:
+            frame = CGRectMake(-self.size, 0, self.size, [UIScreen mainScreen].bounds.size.height);
+            break;
+            
+        case VKSideMenuDirectionFromBottom:
+            frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, self.size);
+            break;
+            
+        case VKSideMenuDirectionFromRight:
+            frame = CGRectMake([UIScreen mainScreen].bounds.size.width + self.size, 0, self.size, [UIScreen mainScreen].bounds.size.height);
+            break;
+    }
+    
+    return frame;
 }
 
 -(CGRect)frameShowed
 {
-    CGFloat x = self.direction == VKSideMenuDirectionLeftToRight ? 0 : [UIScreen mainScreen].bounds.size.width - self.width;
-    return CGRectMake(x, 0, self.width, self.view.frame.size.height);
+    CGRect frame = self.view.frame;
+    
+    switch (self.direction)
+    {
+        case VKSideMenuDirectionFromTop:
+            frame.origin.y = 0;
+            break;
+            
+        case VKSideMenuDirectionFromLeft:
+            frame.origin.x = 0;
+            break;
+            
+        case VKSideMenuDirectionFromBottom:
+            frame.origin.y = [UIScreen mainScreen].bounds.size.height - self.size;
+            break;
+            
+        case VKSideMenuDirectionFromRight:
+            frame.origin.x = [UIScreen mainScreen].bounds.size.width - self.size;
+            break;
+    }
+    
+    return frame;
 }
 
 @end

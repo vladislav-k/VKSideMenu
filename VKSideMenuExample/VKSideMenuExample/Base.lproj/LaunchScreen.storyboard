@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +17,55 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VKSideMenu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZw-MH-f8x">
+                                <rect key="frame" x="20" y="264.5" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="e3H-gL-PcT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example app" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9To-bh-4Sj">
+                                <rect key="frame" x="20" y="294.5" width="560" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="ba7-9e-wUe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://github.com/vladislav-k/VKSideMenu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hvk-zF-oVH">
+                                <rect key="frame" x="182" y="559" width="260" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="By8-f8-Ean"/>
+                                    <constraint firstAttribute="width" constant="260" id="o80-Dc-8eH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_github" translatesAutoresizingMaskIntoConstraints="NO" id="8Gs-Mq-SWh">
+                                <rect key="frame" x="158" y="557.5" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="AIl-xh-NLm"/>
+                                    <constraint firstAttribute="width" constant="24" id="tbu-5z-xN9"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Hvk-zF-oVH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" constant="12" id="Fcm-fS-Qgl"/>
+                            <constraint firstItem="Hvk-zF-oVH" firstAttribute="leading" secondItem="8Gs-Mq-SWh" secondAttribute="trailing" id="G1O-QX-lkf"/>
+                            <constraint firstItem="9To-bh-4Sj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="Qe2-wX-y8i"/>
+                            <constraint firstItem="dZw-MH-f8x" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="dwe-98-UJu"/>
+                            <constraint firstItem="dZw-MH-f8x" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-20" id="jCx-Sy-5zO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dZw-MH-f8x" secondAttribute="trailing" id="qjR-6e-C1p"/>
+                            <constraint firstItem="8Gs-Mq-SWh" firstAttribute="centerY" secondItem="Hvk-zF-oVH" secondAttribute="centerY" id="rAS-YL-7VM"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Hvk-zF-oVH" secondAttribute="bottom" constant="20" id="szm-et-eRV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9To-bh-4Sj" secondAttribute="trailing" id="w2w-kK-3xb"/>
+                            <constraint firstItem="9To-bh-4Sj" firstAttribute="top" secondItem="dZw-MH-f8x" secondAttribute="bottom" id="wYg-gW-ncM"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +73,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_github" width="64" height="64"/>
+    </resources>
 </document>

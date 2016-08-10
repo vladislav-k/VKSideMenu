@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="n7p-2A-RG4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="n7p-2A-RG4">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -27,23 +27,55 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="rdX-Yf-Dti">
                                 <rect key="frame" x="20" y="240" width="560" height="352"/>
-                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus nulla velit, eget pharetra massa tempor at. Morbi nisi felis, mattis ut consectetur at, pulvinar in diam. Vestibulum dolor lectus, eleifend id tellus vitae, vulputate imperdiet urna. Curabitur fermentum felis convallis nunc congue, ac aliquam mauris commodo. Quisque cursus auctor neque. Vestibulum quis est vel dolor luctus consectetur vel sed justo. Sed diam nulla, dapibus at cursus id, blandit eu nisi.
+                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus nulla velit, eget pharetra massa tempor at. Morbi nisi felis, mattis ut consectetur at, pulvinar in diam. Vestibulum dolor lectus, eleifend id tellus vitae, vulputate imperdiet urna. Curabitur fermentum felis convallis nunc congue, ac aliquam mauris commodo. Quisque cursus auctor neque. Vestibulum quis est vel dolor luctus consectetur vel sed justo. Sed diam nulla, dapibus at cursus id, blandit eu nisi.
 
 Nullam at feugiat neque. Integer placerat diam at ipsum consequat, ut sollicitudin magna eleifend. Nunc et convallis ligula. Nunc id tellus sed dolor viverra interdum vitae id massa. Vivamus posuere congue diam in auctor. Aenean ut tortor tempus, pretium lectus sit amet, consectetur nibh. Praesent eu consectetur elit. Maecenas eu neque quis diam congue pellentesque et sit amet nunc. Etiam pretium libero sed tellus ullamcorper, id vulputate dui pulvinar. Praesent ultricies ligula eu viverra feugiat. Sed finibus felis varius, consequat nisl a, convallis nibh. Suspendisse feugiat laoreet est, a tempor magna sodales ac. Integer vel feugiat dui. Nam id elit nec elit lacinia efficitur. Vestibulum quis tellus pellentesque, eleifend metus at, malesuada sapien. Donec at libero at mi porta molestie.
 
 Duis eu odio maximus, dignissim nisi viverra, semper ex. Nulla elementum, elit sit amet fermentum vestibulum, elit ipsum pharetra tortor, eu rhoncus velit tellus non nisi. Etiam hendrerit massa tellus, sit amet consequat mi consequat ultrices. Fusce efficitur, neque nec consectetur vestibulum, sem risus pulvinar augue, vitae varius metus libero non ante. Fusce tellus erat, convallis eu nisi ac, accumsan suscipit eros. Integer at felis iaculis, dignissim ligula pellentesque, eleifend ligula. Morbi gravida malesuada est. Proin sollicitudin condimentum blandit. Maecenas euismod et risus quis lacinia. Phasellus est massa, accumsan nec metus id, suscipit rhoncus massa. Integer lectus ligula, ultrices non condimentum et, mollis vel elit. Quisque sit amet cursus est. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In viverra felis augue, sed gravida est tempor vel. Sed in tortor est. Pellentesque dictum odio libero, nec ullamcorper erat euismod sed.
-</mutableString>
+</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.94509803920000002" green="0.92941176469999998" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xd-Yw-B88">
+                                <rect key="frame" x="20" y="196" width="100" height="36"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="82L-T0-X4S"/>
+                                    <constraint firstAttribute="height" constant="36" id="EbG-uB-tnp"/>
+                                </constraints>
+                                <state key="normal" title="Show Top">
+                                    <color key="titleColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonMenuTop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VD1-W0-doW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CiJ-SG-gss">
+                                <rect key="frame" x="480" y="196" width="100" height="36"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="QHf-r9-u6a"/>
+                                    <constraint firstAttribute="width" constant="100" id="mgB-xK-TaV"/>
+                                </constraints>
+                                <state key="normal" title="Show Bottom">
+                                    <color key="titleColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonMenuBottom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oeg-FJ-5ZK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dfM-cp-GQT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KNt-Q1-ovk"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rdX-Yf-Dti" secondAttribute="bottom" constant="8" id="PP4-0X-udO"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="6Xd-Yw-B88" secondAttribute="leading" id="TUn-xg-t28"/>
                             <constraint firstItem="dfM-cp-GQT" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="W2t-z3-Uvg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CiJ-SG-gss" secondAttribute="trailing" id="dID-8H-gmM"/>
+                            <constraint firstItem="6Xd-Yw-B88" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="132" id="ghk-xq-7tQ"/>
                             <constraint firstAttribute="leadingMargin" secondItem="rdX-Yf-Dti" secondAttribute="leading" id="pg7-nB-MbZ"/>
+                            <constraint firstItem="CiJ-SG-gss" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="132" id="qgh-sL-dTq"/>
                             <constraint firstItem="rdX-Yf-Dti" firstAttribute="top" secondItem="dfM-cp-GQT" secondAttribute="bottom" constant="8" id="xqo-2y-vVH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rdX-Yf-Dti" secondAttribute="trailing" id="z0b-lU-cmp"/>
                         </constraints>

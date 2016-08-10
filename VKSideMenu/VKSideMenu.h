@@ -1,5 +1,6 @@
 //
 //  VKSideMenu.h
+//  Version: 1.1
 //
 //  Created by Vladislav Kovalyov on 2/7/16.
 //  Copyright © 2016 WOOPSS.com (http://woopss.com/)
@@ -28,15 +29,21 @@
  @enum      VKSideMenuDirection
  @abstract  An enum that defines the direction of <code>VKSideMenu</code>
  
- @constant  VKSideMenuDirectionLeftToRight
+ @constant  VKSideMenuDirectionFromLeft
                 Menu appears from left to right of parent view
- @constant  VKAdBannerViewRotationTypeRandom
+ @constant  VKSideMenuDirectionFromRight
                 Menu appears from right to left of parent view
+ @constant  VKSideMenuDirectionFromTop
+                Menu appears from top to bottom of parent view
+ @constant  VKSideMenuDirectionFromBottom
+                Menu appears from bottom to top of parent view
  */
 typedef NS_ENUM(NSInteger, VKSideMenuDirection)
 {
-    VKSideMenuDirectionLeftToRight,
-    VKSideMenuDirectionRightToLeft
+    VKSideMenuDirectionFromLeft,
+    VKSideMenuDirectionFromRight,
+    VKSideMenuDirectionFromTop,
+    VKSideMenuDirectionFromBottom
 };
 
 /*!
@@ -130,14 +137,24 @@ typedef NS_ENUM(NSInteger, VKSideMenuDirection)
 /*!
  @method    initWithWidth:andDirection:
  @abstract  Used for initialization of <code>VKSideMenu</code> with specified width and direction
- @param     width
-                Specified width of the side menu
+ @param     size
+                Specified width for side menu with horizontal direction and height for menu with vertical diraction.
  @param     direction
                 Specified direction of the side menu
  @see       <code>VKSideMenuDirection</code>
  @return    <code>VKSideMenu</code> instance
  */
--(instancetype)initWithWidth:(CGFloat)width andDirection:(VKSideMenuDirection)direction;
+-(instancetype)initWithSize:(CGFloat)size andDirection:(VKSideMenuDirection)direction;
+
+/*!
+ @method    initWithDirection
+ @abstract  Used for initialization of <code>VKSideMenu</code> with specified direction
+ @param     direction
+                Specified direction of the side menu
+ @see       <code>VKSideMenuDirection</code>
+ @return    <code>VKSideMenu</code> instance
+ */
+-(instancetype)initWithDirection:(VKSideMenuDirection)direction;
 
 /*!
  @property  delegate
@@ -162,11 +179,11 @@ typedef NS_ENUM(NSInteger, VKSideMenuDirection)
 @property (nonatomic, assign) VKSideMenuDirection direction;
 
 /*!
- @property  width
- @abstract  Specified width of <code>VKSideMenu</code>
- @note      Default is 240
+ @property  size
+ @abstract  Specified width size for  <code>VKSideMenu</code> with horizontal direction and height size for  <code>VKSideMenu</code> with vertical diraction.
+ @note      Default is 220. Property affects only on horizontal directions. On vertical directions it always equals screen width.
  */
-@property (nonatomic, assign) CGFloat width;
+@property (nonatomic, assign) CGFloat size;
 
 /*!
  @property  view
@@ -187,6 +204,12 @@ typedef NS_ENUM(NSInteger, VKSideMenuDirection)
  @abstract  UITableView object used for data representation
  */
 @property (nonatomic, strong) UITableView *tableView;
+
+/*!
+ @property  rowHeight
+ @abstract  Set height of UITableViewCell
+ */
+@property (nonatomic, assign) CGFloat rowHeight;
 
 /*!
  @property  enableOverlay
@@ -210,6 +233,22 @@ typedef NS_ENUM(NSInteger, VKSideMenuDirection)
 @property (nonatomic, assign) BOOL hideOnSelection;
 
 /*!
+ @property  enableGestures
+ @note      Default value is YES. First you need to add gesture recognition for a view. @see <code>addSwipeGestureRecognition:</code>
+ */
+@property (nonatomic, assign) BOOL enableGestures;
+
+/*!
+ @method    addSwipeGestureRecognition:
+ @abstract  Used for enabling swipe gesture recognition
+ @param     view
+                Target view
+ 
+ @see       <code>enableGestures</code>
+ */
+-(void)addSwipeGestureRecognition:(UIView *)view;
+
+/*!
  @method    show
  @abstract  Shows <code>VKSideMenu</code> view
  */
@@ -218,10 +257,11 @@ typedef NS_ENUM(NSInteger, VKSideMenuDirection)
 /*!
  @method    show
  @abstract  Shows <code>VKSideMenu</code> with specified width
- @param     width
+ @param     size
                 Specified width for <code>VKSideMenu</code>
+ @see       <code>size</code> property for more information
  */
--(void)showWithWidth:(CGFloat)width;
+-(void)showWithSize:(CGFloat)size;
 
 /*!
  @method    show

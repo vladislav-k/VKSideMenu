@@ -318,6 +318,7 @@
 				A28821D01C675B0D00D8EC46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

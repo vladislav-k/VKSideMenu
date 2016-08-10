@@ -32,6 +32,8 @@
 
 @property (nonatomic, strong) VKSideMenu *menuLeft;
 @property (nonatomic, strong) VKSideMenu *menuRight;
+@property (nonatomic, strong) VKSideMenu *menuTop;
+@property (nonatomic, strong) VKSideMenu *menuBottom;
 
 @property (strong, nonatomic) IBOutlet UIImageView *avatar;
 
@@ -44,13 +46,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    // HORIZONTAL MENUS
     // Init default left-side menu with custom width
-    self.menuLeft = [[VKSideMenu alloc] initWithWidth:220 andDirection:VKSideMenuDirectionLeftToRight];
+    self.menuLeft = [[VKSideMenu alloc] initWithSize:220 andDirection:VKSideMenuDirectionFromLeft];
     self.menuLeft.dataSource = self;
     self.menuLeft.delegate   = self;
+    [self.menuLeft addSwipeGestureRecognition:self.view];
     
     // Init custom right-side menu
-    self.menuRight = [[VKSideMenu alloc] initWithWidth:180 andDirection:VKSideMenuDirectionRightToLeft];
+    self.menuRight = [[VKSideMenu alloc] initWithSize:180 andDirection:VKSideMenuDirectionFromRight];
     self.menuRight.dataSource       = self;
     self.menuRight.delegate         = self;
     self.menuRight.textColor        = [UIColor lightTextColor];
@@ -58,12 +62,33 @@
     self.menuRight.hideOnSelection  = NO;
     self.menuRight.selectionColor   = [UIColor colorWithWhite:.0 alpha:.3];
     self.menuRight.iconsColor       = nil;
+    [self.menuRight addSwipeGestureRecognition:self.view];
     /* See more options in VKSideMenu.h */
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
         self.menuRight.blurEffectStyle = UIBlurEffectStyleDark;
     else
         self.menuRight.backgroundColor = [UIColor colorWithWhite:0. alpha:0.8];
+    
+    // VERTICAL MENUS
+    // From top
+    self.menuTop = [[VKSideMenu alloc] initWithSize:240 andDirection:VKSideMenuDirectionFromTop];
+    self.menuTop.dataSource = self;
+    self.menuTop.delegate   = self;
+    [self.menuTop addSwipeGestureRecognition:self.view];
+    
+    // From bottom
+    self.menuBottom = [[VKSideMenu alloc] initWithSize:280 andDirection:VKSideMenuDirectionFromBottom];
+    self.menuBottom.dataSource = self;
+    self.menuBottom.delegate   = self;
+    self.menuBottom.rowHeight  = 50;
+    self.menuBottom.textColor  = [UIColor lightTextColor];
+    [self.menuBottom addSwipeGestureRecognition:self.view];
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
+        self.menuBottom.blurEffectStyle = UIBlurEffectStyleDark;
+    else
+        self.menuBottom.backgroundColor = [UIColor colorWithWhite:0. alpha:0.8];
     
     // Make stormtrooper image to be cool
     self.avatar.layer.cornerRadius  = self.avatar.frame.size.width * .5;
@@ -82,16 +107,26 @@
     [self.menuRight show];
 }
 
+- (IBAction)buttonMenuTop:(id)sender
+{
+    [self.menuTop show];
+}
+
+- (IBAction)buttonMenuBottom:(id)sender
+{
+    [self.menuBottom show];
+}
+
 #pragma mark - VKSideMenuDataSource
 
 -(NSInteger)numberOfSectionsInSideMenu:(VKSideMenu *)sideMenu
 {
-    return sideMenu == self.menuLeft ? 1 : 2;
+    return (sideMenu == self.menuLeft || sideMenu == self.menuTop) ? 1 : 2;
 }
 
 -(NSInteger)sideMenu:(VKSideMenu *)sideMenu numberOfRowsInSection:(NSInteger)section
 {
-    if (sideMenu == self.menuLeft)
+    if (sideMenu == self.menuLeft || sideMenu == self.menuTop)
         return 4;
     
     return section == 0 ? 1 : 2;
@@ -103,7 +138,7 @@
     // It's beter to store all items in separate arrays like you do it in your UITableView's. Right?
     VKSideMenuItem *item = [VKSideMenuItem new];
     
-    if (sideMenu == self.menuLeft) // All LEFT menu items
+    if (sideMenu == self.menuLeft || sideMenu == self.menuTop) // All LEFT and TOP menu items
     {
         switch (indexPath.row)
         {
@@ -134,7 +169,6 @@
     else if (indexPath.section == 0) // RIGHT menu first section items
     {
         item.title = @"Login";
-        item.icon  = [UIImage imageNamed:@"ic_login"];
     }
     else // RIGHT menu second section items
     {
@@ -164,12 +198,34 @@
 
 -(void)sideMenuDidShow:(VKSideMenu *)sideMenu
 {
-    NSLog(@"%@ VKSideMenue did show", sideMenu == self.menuLeft ? @"LEFT" : @"RIGHT");
+    NSString *menu = @"";
+    
+    if (sideMenu == self.menuLeft)
+        menu = @"LEFT";
+    else if (sideMenu == self.menuTop)
+        menu = @"TOP";
+    else if (sideMenu == self.menuRight)
+        menu = @"RIGHT";
+    else if (sideMenu == self.menuBottom)
+        menu = @"RIGHT";
+    
+    NSLog(@"%@ VKSideMenue did show", menu);
 }
 
 -(void)sideMenuDidHide:(VKSideMenu *)sideMenu
 {
-    NSLog(@"%@ VKSideMenue did hide", sideMenu == self.menuLeft ? @"LEFT" : @"RIGHT");
+    NSString *menu = @"";
+    
+    if (sideMenu == self.menuLeft)
+        menu = @"LEFT";
+    else if (sideMenu == self.menuTop)
+        menu = @"TOP";
+    else if (sideMenu == self.menuRight)
+        menu = @"RIGHT";
+    else if (sideMenu == self.menuBottom)
+        menu = @"RIGHT";
+    
+    NSLog(@"%@ VKSideMenue did hide", menu);
 }
 
 -(NSString *)sideMenu:(VKSideMenu *)sideMenu titleForHeaderInSection:(NSInteger)section

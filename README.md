@@ -1,6 +1,6 @@
 # VKSideMenu
 ## Description
-**VKSideMenu** is a `UITableView`-like menu with blur effect.<br>
+**VKSideMenu** is a `UITableView`-like menu with blur effect and gestures.<br>
 **Note:** blur effect is availabe for iOS 8.0 and later only. You will get a simple UIView with half-transperent background for iOS 7.
 
 ![VKSideMenu Demo](https://github.com/vladislav-k/VKSideMenu/blob/master/Demo.gif?raw=true)
@@ -75,6 +75,9 @@ After initialization you should assign data source and delegate to menu object a
 ```
 
 This class is very flexible for customization. You can set text colors, text fonts, background etc. See more info in `VKSideMenu.h` file.
+
+## Gestures
+You can add Swipe gesture recognition for a specific view. Just use method `addSwipeGestureRecognition:` to enable it.
 
 ## Author
 Vladislav Kovalyov, http://woopss.com/
